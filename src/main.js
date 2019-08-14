@@ -18,6 +18,7 @@ import Login from './Login.vue';
 import Dashboard from './components/dashboard/Index.vue';
 import Products from './components/dashboard/Products.vue';
 import Clients from './components/dashboard/Clients.vue';
+import Quantities from './components/dashboard/Quantities.vue';
 
 /**
  * Routes and Router declaration
@@ -28,6 +29,7 @@ const routes = [
     {path: '/dashboard', component:Dashboard, name:'home'},
     {path: '/dashboard/products', component:Products},
     {path: '/dashboard/clients', component:Clients},
+    {path: '/dashboard/Quantities', component:Quantities},
     
 ]
 const router = new VueRouter({

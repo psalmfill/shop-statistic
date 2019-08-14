@@ -5,14 +5,7 @@
       <SideBar />
       <Content>
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800 text-left">Clients</h1>
-        <!-- <p class="mb-4">
-          DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the
-          <a
-            target="_blank"
-            href="https://datatables.net"
-          >official DataTables documentation</a>.
-        </p> -->
+        <h1 class="h3 mb-2 text-gray-800 text-left">Products</h1>
 
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -22,26 +15,30 @@
           <div class="card-body">
             <div class="table-responsive">
               <!-- {{products}} -->
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered text-left" id="dataTable" width="100%" cellspacing="0" v-if="products">
                 <thead>
                   <tr>
                     <th>Client</th>
-                    <th>Profile</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
                   </tr>
                 </thead>
                 <tfoot>
                   <tr>
+                    <th>Client</th>
                     <th>Product</th>
-                    <th>Price</th>
+                    <th>Quantity</th>
                   </tr>
                 </tfoot>
                 <tbody>
-                  <tr v-for="(product,index) in clients" :key="index">
-                    <td class="text-left text-uppercase">{{index}}</td>
-                    <td>&#8358;{{clients[index].Profit}}</td>
+                  <tr v-for="(product,index) in products" :key="index">
+                    <td class="text-capitalize">{{index.replace(/[(')]/g,'').split(',')[0]}}</td>
+                    <td>{{index.replace(/[(')]/g,'').split(',')[1]}}</td>
+                    <td>{{products[index]}}</td>
                   </tr>
                 </tbody>
               </table>
+              <div class="container" v-else> Loading...</div>
             </div>
           </div>
         </div>
@@ -58,18 +55,18 @@
   </div>
 </template>
 <script>
-
-import "@/assets/vendor/datatables/dataTables.bootstrap4.min.css";
 import "@/assets/vendor/datatables/jquery.dataTables.min.js";
 import "@/assets/vendor/datatables/dataTables.bootstrap4.min.js";
 import "@/assets/js/demo/datatables-demo.js";
+
+import "@/assets/vendor/datatables/dataTables.bootstrap4.min.css";
 import SideBar from "./SideBar";
 import Content from "./Content";
 import LogoutModal from "../modals/LogoutModal";
-import axios from "axios";
+import axios from 'axios'
 
 export default {
-  name: "Clients",
+  name: "Quantities",
   components: {
     SideBar,
     Content,
@@ -77,16 +74,28 @@ export default {
   },
   data() {
     return {
-      clients: []
+      products: []
     };
   },
   mounted() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const fullUrl =
-      proxyurl +
-      "https://analysisapi.herokuapp.com/highamtby/";
+      // let products;
+      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      // const response = await fetch(
+     const fullUrl =   proxyurl +
+          "https://analysisapi.herokuapp.com/wpw/grp_by=Client,Description/cnt_val_col=Qty./whrgrpis=None/sortby=Client,Qty./ascending=False/"
+      // );
+      // const data = await response.json();
+      // this.products = await data
 
-    axios.get(fullUrl).then(response => (this.clients = response.data));
+      // return data;
+
+      axios
+      .get(fullUrl)
+      .then(response => (this.products = response.data['Qty.']))
+    // }
   }
 };
 </script>
+<style>
+/* @import './assets/vendor/datatables/dataTables.bootstrap4.min.css'; */
+</style>

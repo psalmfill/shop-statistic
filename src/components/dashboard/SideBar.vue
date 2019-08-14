@@ -52,6 +52,15 @@
             <span>Products</span>
           </router-link>
         </li>
+         <li class="nav-item">
+          <router-link
+            class="nav-link "
+            to="/dashboard/quantities"
+          >
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Quantities</span>
+          </router-link>
+        </li>
 
         
         
