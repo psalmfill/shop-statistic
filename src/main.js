@@ -24,10 +24,7 @@ import Clients from './components/dashboard/Clients.vue';
  */
 Vue.use(VueRouter);
 const routes = [
-    {
-      path: '/', component: {template: `<div><h1> Coming Soon</h1></div>`},
-    },
-    {path: '/login', component:Login, name:'Login'},
+    {path: '/', component:Login, name:'Login'},
     {path: '/dashboard', component:Dashboard, name:'home'},
     {path: '/dashboard/products', component:Products},
     {path: '/dashboard/clients', component:Clients},

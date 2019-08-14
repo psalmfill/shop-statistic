@@ -80,7 +80,7 @@ export default {
   methods: {
     login: function(event) {
       event.preventDefault();
-      alert(this.fields.email);
+      this.$router.push('dashboard')
       //Todo: redirect to dashboard
     }
   }
