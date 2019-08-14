@@ -15,7 +15,7 @@
           <div class="card-body">
             <div class="table-responsive">
               <!-- {{products}} -->
-              <table class="table table-bordered text-left" id="dataTable" width="100%" cellspacing="0" v-if="products">
+              <table class="table table-bordered text-left" id="dataTable" width="100%" cellspacing="0" v-if="!isLoading">
                 <thead>
                   <tr>
                     <th>Client</th>
@@ -38,7 +38,7 @@
                   </tr>
                 </tbody>
               </table>
-              <div class="container" v-else> Loading...</div>
+              <div class="container" v-else> <h3>Loading...</h3> </div>
             </div>
           </div>
         </div>
@@ -74,7 +74,8 @@ export default {
   },
   data() {
     return {
-      products: []
+      products: [],
+      isLoading:true
     };
   },
   mounted() {
@@ -90,8 +91,11 @@ export default {
       // return data;
 
       axios
-      .get(fullUrl)
-      .then(response => (this.products = response.data['Qty.']))
+      .get(fullUrl).then(response => {
+        (this.products = response.data['Qty.'])
+      this.isLoading = false
+      })
+      // .then(response => (this.products = response.data['Qty.']))
     // }
   }
 };

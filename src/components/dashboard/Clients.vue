@@ -22,7 +22,7 @@
           <div class="card-body">
             <div class="table-responsive">
               <!-- {{products}} -->
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" v-if="!isLoading">
                 <thead>
                   <tr>
                     <th>Client</th>
@@ -42,6 +42,7 @@
                   </tr>
                 </tbody>
               </table>
+              <div v-else><h3>Loading...</h3></div>
             </div>
           </div>
         </div>
@@ -77,7 +78,8 @@ export default {
   },
   data() {
     return {
-      clients: []
+      clients: [],
+      isLoading: true
     };
   },
   mounted() {
@@ -86,7 +88,11 @@ export default {
       proxyurl +
       "https://analysisapi.herokuapp.com/highamtby/";
 
-    axios.get(fullUrl).then(response => (this.clients = response.data));
+    axios.get(fullUrl)
+    .then(response => {
+        (this.clients = response.data)
+      this.isLoading = false
+      })
   }
 };
 </script>
